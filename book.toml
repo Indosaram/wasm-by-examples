@@ -1,0 +1,9 @@
+[book]
+authors = ["Indosaram"]
+language = "kr"
+multilingual = false
+src = "src"
+title = "9가지 예제로 배우는 웹어셈블리"
+
+[output.html]
+git-repository-url = "https://github.com/Indosaram/wasm-by-examples"
