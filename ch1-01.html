@@ -1,0 +1,244 @@
+<!DOCTYPE HTML>
+<html lang="kr" class="light" dir="ltr">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>WASM - 9가지 예제로 배우는 웹어셈블리</title>
+
+
+        <!-- Custom HTML head -->
+        
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff">
+
+        <link rel="icon" href="favicon.svg">
+        <link rel="shortcut icon" href="favicon.png">
+        <link rel="stylesheet" href="css/variables.css">
+        <link rel="stylesheet" href="css/general.css">
+        <link rel="stylesheet" href="css/chrome.css">
+        <link rel="stylesheet" href="css/print.css" media="print">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="FontAwesome/css/font-awesome.css">
+        <link rel="stylesheet" href="fonts/fonts.css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="highlight.css">
+        <link rel="stylesheet" href="tomorrow-night.css">
+        <link rel="stylesheet" href="ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+
+    </head>
+    <body class="sidebar-visible no-js">
+    <div id="body-container">
+        <!-- Provide site root to javascript -->
+        <script>
+            var path_to_root = "";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
+        </script>
+
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script>
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script>
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            var html = document.querySelector('html');
+            html.classList.remove('light')
+            html.classList.add(theme);
+            var body = document.querySelector('body');
+            body.classList.remove('no-js')
+            body.classList.add('js');
+        </script>
+
+        <input type="checkbox" id="sidebar-toggle-anchor" class="hidden">
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script>
+            var body = document.querySelector('body');
+            var sidebar = null;
+            var sidebar_toggle = document.getElementById("sidebar-toggle-anchor");
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            } else {
+                sidebar = 'hidden';
+            }
+            sidebar_toggle.checked = sidebar === 'visible';
+            body.classList.remove('sidebar-visible');
+            body.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <div class="sidebar-scrollbox">
+                <ol class="chapter"><li class="chapter-item expanded "><a href="ch0-00.html"><strong aria-hidden="true">1.</strong> 여는말</a></li><li class="chapter-item expanded "><a href="ch1-00.html"><strong aria-hidden="true">2.</strong> WebAssembly란?</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="ch1-01.html" class="active"><strong aria-hidden="true">2.1.</strong> WASM</a></li><li class="chapter-item expanded "><a href="ch1-02.html"><strong aria-hidden="true">2.2.</strong> WASI</a></li><li class="chapter-item expanded "><a href="ch1-03.html"><strong aria-hidden="true">2.3.</strong> WasmEdge</a></li></ol></li><li class="chapter-item expanded "><a href="ch2-00.html"><strong aria-hidden="true">3.</strong> 가장 간단한 WASM 예제</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="ch2-01.html"><strong aria-hidden="true">3.1.</strong> 예제 1: WASM으로 러스트 실행해보기</a></li><li class="chapter-item expanded "><a href="ch2-02.html"><strong aria-hidden="true">3.2.</strong> 예제 2: WASM으로 파이썬 실행해보기</a></li><li class="chapter-item expanded "><a href="ch2-03.html"><strong aria-hidden="true">3.3.</strong> 예제 3: 러스트 서버 실행해보기</a></li><li class="chapter-item expanded "><a href="ch2-04.html"><strong aria-hidden="true">3.4.</strong> 예제 4: 파이썬 웹 크롤링</a></li></ol></li><li class="chapter-item expanded "><a href="ch3-00.html"><strong aria-hidden="true">4.</strong> 서버리스</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="ch3-01.html"><strong aria-hidden="true">4.1.</strong> 예제 5: Yew로 풀스택 웹앱 만들기</a></li><li class="chapter-item expanded "><a href="ch3-02.html"><strong aria-hidden="true">4.2.</strong> 예제 6: PDF 변환 프로그램</a></li></ol></li><li class="chapter-item expanded "><a href="ch4-00.html"><strong aria-hidden="true">5.</strong> 게임 엔진</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="ch4-01.html"><strong aria-hidden="true">5.1.</strong> Bevy</a></li><li class="chapter-item expanded "><a href="ch4-02.html"><strong aria-hidden="true">5.2.</strong> 예제 7: 브라우저에서 게임 실행하기</a></li></ol></li><li class="chapter-item expanded "><a href="ch5-00.html"><strong aria-hidden="true">6.</strong> WasmEdge</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="ch5-01.html"><strong aria-hidden="true">6.1.</strong> 넥스트 레벨 컨테이너</a></li><li class="chapter-item expanded "><a href="ch5-02.html"><strong aria-hidden="true">6.2.</strong> 예제 8: 도커로 WASM 배포하기</a></li></ol></li><li class="chapter-item expanded "><a href="ch6-00.html"><strong aria-hidden="true">7.</strong> 맺음말</a></li></ol>
+            </div>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle">
+                <div class="sidebar-resize-indicator"></div>
+            </div>
+        </nav>
+
+        <!-- Track and set sidebar scroll position -->
+        <script>
+            var sidebarScrollbox = document.querySelector('#sidebar .sidebar-scrollbox');
+            sidebarScrollbox.addEventListener('click', function(e) {
+                if (e.target.tagName === 'A') {
+                    sessionStorage.setItem('sidebar-scroll', sidebarScrollbox.scrollTop);
+                }
+            }, { passive: true });
+            var sidebarScrollTop = sessionStorage.getItem('sidebar-scroll');
+            sessionStorage.removeItem('sidebar-scroll');
+            if (sidebarScrollTop) {
+                // preserve sidebar scroll position when navigating via links within sidebar
+                sidebarScrollbox.scrollTop = sidebarScrollTop;
+            } else {
+                // scroll sidebar to current active section when navigating via "next/previous chapter" buttons
+                var activeSection = document.querySelector('#sidebar .active');
+                if (activeSection) {
+                    activeSection.scrollIntoView({ block: 'center' });
+                }
+            }
+        </script>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky">
+                    <div class="left-buttons">
+                        <label id="sidebar-toggle" class="icon-button" for="sidebar-toggle-anchor" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </label>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                        </ul>
+                        <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                    </div>
+
+                    <h1 class="menu-title">9가지 예제로 배우는 웹어셈블리</h1>
+
+                    <div class="right-buttons">
+                        <a href="print.html" title="Print this book" aria-label="Print this book">
+                            <i id="print-button" class="fa fa-print"></i>
+                        </a>
+                        <a href="https://github.com/Indosaram/wasm-by-examples" title="Git repository" aria-label="Git repository">
+                            <i id="git-repository-button" class="fa fa-github"></i>
+                        </a>
+
+                    </div>
+                </div>
+
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script>
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <h1 id="wasm"><a class="header" href="#wasm">WASM</a></h1>
+<h2 id="wasm의-장점은-무엇인가"><a class="header" href="#wasm의-장점은-무엇인가">Wasm의 장점은 무엇인가?</a></h2>
+<p>🚀 빠르고 효율적 - JIT/AOT 기능을 가진 대부분의 런타임을 통해 네이티브와 유사한 속도를 제공할 수 있습니다. VM 부팅이나 컨테이너 시작과 달리 콜드 스타트가 없습니다. Wasm 애플리케이션은 최소 메모리 요구사항과 CPU 요구사항으로 실행될 수 있습니다.</p>
+<p>🔒 안전 - Wasm 런타임은 기본적으로 샌드박스화되어 있고 메모리에 대한 안전한 접근을 허용합니다. 기능 기반 모델은 Wasm 애플리케이션이 명시적으로 허용된 것만 접근할 수 있도록 보장합니다. 공급망 보안이 향상되었습니다.</p>
+<p>💼 이식 가능 - 주요 런타임 사이에서 대부분의 CPU(x86, ARM, RISC-V)와 대부분의 OS(Linux, Windows, macOS, Android, ESXi)를 지원하며 심지어 비-Posix 운영 체제도 지원합니다.</p>
+<p>🗣️ 다중 언어 - 40개 이상의 언어가 Wasm으로 컴파일될 수 있으며, 최신의 지속적으로 향상되는 도구체인이 있습니다.</p>
+<hr />
+<h2 id="브라우저에서-wasm은-어떻게-동작하는가"><a class="header" href="#브라우저에서-wasm은-어떻게-동작하는가">브라우저에서 Wasm은 어떻게 동작하는가?</a></h2>
+<p>브라우저 엔진은 Wasm 가상 머신을 통합하는데, 일반적으로 Wasm 런타임이라고 합니다. 이는 Wasm 이진 명령어를 실행할 수 있습니다. Emscripten과 같은 컴파일러 툴체인은 소스 코드를 Wasm 대상으로 컴파일할 수 있습니다. 이를 통해 레거시 애플리케이션을 브라우저로 포팅하고 클라이언트 측 웹 애플리케이션에서 실행되는 JS 코드와 직접 통신할 수 있습니다.</p>
+<hr />
+<p><img src="images/ch01-01.png" alt="Alt text" /></p>
+<hr />
+<p>이러한 기술들은 전통적인 데스크톱 앱들이 브라우저에서 실행되도록 했습니다. 이제 브라우저가 있는 장치에서든 실행할 수 있습니다. 주목할만한 예시로는 Google Earth와 컴퓨터 비전을 위한 Open CV 라이브러리가 있습니다.</p>
+<hr />
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                            <a rel="prev" href="ch1-00.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+
+                            <a rel="next prefetch" href="ch1-02.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                    <a rel="prev" href="ch1-00.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+
+                    <a rel="next prefetch" href="ch1-02.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+            </nav>
+
+        </div>
+
+
+
+
+        <script>
+            window.playground_copyable = true;
+        </script>
+
+
+        <script src="elasticlunr.min.js"></script>
+        <script src="mark.min.js"></script>
+        <script src="searcher.js"></script>
+
+        <script src="clipboard.min.js"></script>
+        <script src="highlight.js"></script>
+        <script src="book.js"></script>
+
+        <!-- Custom JS scripts -->
+
+
+    </div>
+    </body>
+</html>
